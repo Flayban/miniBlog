@@ -29,6 +29,7 @@ padding: 0.4em 0.6em;
 }
 
 .active {
-background-color: #000;
+background-color:#c3c9cc;
+border-radius: 15px;
 color: #fff;
 }
