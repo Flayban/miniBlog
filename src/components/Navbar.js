@@ -6,6 +6,7 @@ import { useAuthValue } from "../context/AuthContext"
 const Navbar = () => {
 
   const {user} = useAuthValue()
+  const {logout} = useAuthentication()
 
 
   return (
@@ -39,6 +40,13 @@ const Navbar = () => {
             )}
             <li>
                 <NavLink to ="/About" className={({ isActive }) => (isActive ? styles.active : "")}> About </NavLink>
+            </li>
+            <li>
+                {user &&(
+                    <li>
+                        <button onClick={logout}>logout</button>
+                    </li>
+                )}
             </li>
         </ul>
     </nav>
