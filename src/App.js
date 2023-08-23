@@ -12,10 +12,14 @@ import Home from "./pages/Home/Home"
 import About from "./pages/About/About"
 import Login from "./pages/Login/Login"
 import Register from "./pages/Register/Register"
+import CreatPost from './pages/CreatPost/CreatPost'
+import DashBoard from './pages/DashBoard/DashBoard'
 
 //Components
 import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
+
+
 
 function App() {
 
@@ -41,10 +45,12 @@ function App() {
           <Navbar />
           <div className="container">
             <Routes>
-              <Route path='/' element={<Home/>} />
+              <Route path ='/' element={<Home/>} />
               <Route path ='/About' element={<About/>}/>
-              <Route path='/Register' element={<Register/>} />
+              <Route path ='/Register' element={<Register/>} />
               <Route path ='/Login' element={<Login/>}/>
+              <Route path ='/posts/creat' element={<CreatPost/>}/>              
+              <Route path ='/dashboard' element={<DashBoard/>}/>
             </Routes>
           </div>
           <Footer />
