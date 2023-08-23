@@ -47,10 +47,10 @@ function App() {
             <Routes>
               <Route path ='/' element={<Home/>} />
               <Route path ='/About' element={<About/>}/>
-              <Route path ='/Register' element={<Register/>} />
-              <Route path ='/Login' element={<Login/>}/>
-              <Route path ='/posts/creat' element={<CreatPost/>}/>              
-              <Route path ='/dashboard' element={<DashBoard/>}/>
+              <Route path ='/Register' element={ !user ? <Register/> : <Navigate to = "/"/>} />
+              <Route path ='/Login' element={ !user ? <Login/> : <Navigate to = "/"/>}/>
+              <Route path ='/posts/creat' element={user ? <CreatPost/> : <Navigate to = "/Login"/>}/>              
+              <Route path ='/dashboard' element={user ? <DashBoard/> : <Navigate to = "/Login"/>}/>
             </Routes>
           </div>
           <Footer />
