@@ -8,7 +8,7 @@ const Login = () => {
   const [password, setPassWord] = useState("")
   const [error, setError] = useState("")
 
-  const {creatUser, error: authError, loading }  = useAuthentication()
+  const {login, error: authError, loading }  = useAuthentication()
 
   const handleSubmit = async (e) =>{
     e.preventDefault()
@@ -20,7 +20,7 @@ const Login = () => {
         password
     }
     
-    const res = await creatUser(user)
+    const res = await login(user)
     console.log(user)
   }
   useEffect(()=>{
