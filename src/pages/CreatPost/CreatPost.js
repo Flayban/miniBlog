@@ -40,7 +40,7 @@ const CreatPost = () => {
       body,
       tags: tagsArray,
       uid: user.uid,
-      createdBy: user.displayName,
+      creatBy: user.displayName,
     })
 
     if(formError) return 
@@ -49,7 +49,7 @@ const CreatPost = () => {
       title,
       image, 
       bory: body,
-      tags,
+      tagsArray,
       uid: user.uid,
       creatBy: user.displayName
 
