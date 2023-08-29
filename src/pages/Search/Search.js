@@ -14,7 +14,7 @@ const Search = () => {
     <div className={styles.search_container}>
         <h2>Search</h2>
         <div className={styles.nopost}>
-            {posts && posts.length == 0 && (
+            {posts && posts.length === 0 && (
                 <>
                   <p>Nenhum dado encontrado</p>
                   <Link to ="/" className ="btn btn-dark">Voltar</Link>
