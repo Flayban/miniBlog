@@ -16,9 +16,11 @@ import CreatPost from './pages/CreatPost/CreatPost'
 import DashBoard from './pages/DashBoard/DashBoard'
 import Search from './pages/Search/Search'
 import Post from './pages/Post/Post'
+import EditPost from './pages/EditPost/EditPost'
 //Components
 import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
+
 
 
 
@@ -56,6 +58,8 @@ function App() {
               <Route path ='/Login' element={ !user ? <Login/> : <Navigate to = "/"/>}/>
               <Route path ='/posts/creat' element={user ? <CreatPost/> : <Navigate to = "/Login"/>}/>              
               <Route path ='/dashboard' element={user ? <DashBoard/> : <Navigate to = "/Login"/>}/>
+              <Route path ='/posts/edit/:id' element={user ? <EditPost/> : <Navigate to = "/Login"/>}/>  
+              
             </Routes>
           </div>
           <Footer />

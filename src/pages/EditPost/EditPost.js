@@ -1,19 +1,33 @@
-import styles from "./CreatPost.module.css"
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import styles from "./EditPost.module.css"
+import { useEffect, useState } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 import { useAuthValue } from "../../context/AuthContext"
-import { useInsertDocument } from "../../Hooks/useInsertDocument"
+import { useUpdateDocument } from "../../Hooks/useUpdateDocument"
+import { useFetchDocument } from "../../Hooks/useFetchDocument"
 
+const EditPost = () => {
+  const {id} = useParams()
+  const {document: post} = useFetchDocument("posts", id)
 
-const CreatPost = () => {
   const [title, setTitle] = useState("")
   const [image, setImage] = useState("")
-  const [body, setBory] = useState("")
+  const [body, setBody] = useState("")
   const [tags, setTags] = useState([])
   const [formError, setFormError] = useState("")
   const {user} = useAuthValue()
-  const {insertDocument, response} = useInsertDocument("posts")
+  const {updateDocument, response} = useUpdateDocument("posts")
   const navigate = useNavigate();
+
+  useEffect(()=> {
+    if(post){
+      setTitle(post.title)
+      setImage(post.image)
+      setBody(post.body)
+      
+      const textTags = post.tagsArray.join(", ")
+      setTags(textTags)
+    }
+  }, [post])
 
   const handSubmit = (e) =>{
     e.preventDefault()
@@ -44,51 +58,56 @@ const CreatPost = () => {
     })
 
     if(formError) return 
-
-    insertDocument({
+     const data = {
       title,
       image, 
       bory: body,
       tagsArray,
       uid: user.uid,
       creatBy: user.displayName
-
-    })
+     }
+    updateDocument(id, data)
     //Redirect to homepage
-    navigate("/")
+    navigate("/dashboard")
 
   }
 
 
   return (
-    <div className={styles.create_post}>
-        <h1>Crie sua postagem</h1>
-        <p>Compartilhe seus pensamentos</p>
-        <form onSubmit={handSubmit}> 
-          <label>
-            <span>Titulo:</span>
-            <input type="text" name="title" required placeholder="Escreva o titulo da sua postagem" onChange={(e)=> setTitle(e.target.value)} value={title}/>        
-          </label>
-          <label>
-            <span>URL da imagem:</span>
-            <input type="text" name="image" required placeholder="Insira uma imagem" onChange={(e)=> setImage(e.target.value)} value={image}/>        
-          </label>
-          <label>
-            <span>Conteúdo:</span>
-            <textarea name="bory" required placeholder="Escreva seus pensamentos" onChange={(e)=> setBory(e.target.value)} value={body} ></textarea>        
-          </label>
-          <label>
-            <span>Tags:</span>
-            <input type="text" name="tags" required placeholder="Insira as tags" onChange={(e)=> setTags(e.target.value)} value={tags}/>        
-          </label>
-          {!response.loading && <button className="btn">Postar</button>}
-          {response.loading && (<button className="btn" disabled >Aguarde</button>)}
-          {response.error && (<p className="error">{response.error}</p>)}
-          {formError && (<p className="error">{formError}</p>)}
-          
-        </form>
+    <div className={styles.edit_post}>
+        {post && (
+          <>
+            <h1>Edite sua postagem: {post.title}</h1>
+            <p>Reformule seus pensamentos</p>
+            <form onSubmit={handSubmit}> 
+              <label>
+                <span>Titulo:</span>
+                <input type="text" name="title" required placeholder="Escreva o titulo da sua postagem" onChange={(e)=> setTitle(e.target.value)} value={title}/>        
+              </label>
+              <label>
+                <span>URL da imagem:</span>
+                <input type="text" name="image" required placeholder="Insira uma imagem" onChange={(e)=> setImage(e.target.value)} value={image}/>        
+              </label>
+              <p className={styles.preview_title}> Preview da Imagem:</p>
+              <img className={styles.image_preview} src={post.image} alt={post.title} />
+              <label>
+                <span>Conteúdo:</span>
+                <textarea name="bory" required placeholder="Escreva seus pensamentos" onChange={(e)=> setBody(e.target.value)} value={body} ></textarea>        
+              </label>
+              <label>
+                <span>Tags:</span>
+                <input type="text" name="tags" required placeholder="Insira as tags" onChange={(e)=> setTags(e.target.value)} value={tags}/>        
+              </label>
+              {!response.loading && <button className="btn">Editar</button>}
+              {response.loading && (<button className="btn" disabled >Aguarde</button>)}
+              {response.error && (<p className="error">{response.error}</p>)}
+              {formError && (<p className="error">{formError}</p>)}
+              
+            </form>
+          </>
+        )}
     </div>
   )
 }
 
-export default CreatPost
+export default EditPost

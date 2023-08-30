@@ -1,18 +1,20 @@
 import styles from "./DashBoard.module.css"
-
+import { Link } from "react-router-dom"
 //hooks
 import {useAuthValue} from "../../context/AuthContext"
 import {useFetchDocuments} from "../../Hooks/useFetchDocuments"
-import { Link } from "react-router-dom"
+import { useDeleteDocument } from "../../Hooks/useDeleteDocument"
+
 const DashBoard = () => {
   const {user} = useAuthValue()
   const uid = user.uid
 
   //post do usuario
   const {documents : posts, loading} = useFetchDocuments("posts", null, uid)
-  const deleteDocument = (id) =>{
-     
-  }
+  
+  //Deletar post
+  const {deleteDocument} = useDeleteDocument("posts")
+ 
 
   if(loading){
     return <p>Carrengando</p>
