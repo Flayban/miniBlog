@@ -30,7 +30,7 @@ const DashBoard = () => {
           </div>
         ) : (
           <>
-            <div>
+            <div className={styles.post_header}>
               <span>Titulo</span>
               <span>Ações</span>
             </div>
