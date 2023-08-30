@@ -14,7 +14,7 @@ const Post = () => {
                 <h1>{post.title}</h1>
                 <img src={post.image} alt={post.title}/>
                 <p>Por: {post.creatBy}</p>
-                <p>{post.body}</p>
+                <p>{post.bory}</p>
                 <h3>Tags do post</h3>
                 <div className={styles.tags}>
                     {post.tagsArray.map((tag)=>(

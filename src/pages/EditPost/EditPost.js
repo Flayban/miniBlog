@@ -22,7 +22,7 @@ const EditPost = () => {
     if(post){
       setTitle(post.title)
       setImage(post.image)
-      setBody(post.body)
+      setBody(post.bory)
       
       const textTags = post.tagsArray.join(", ")
       setTags(textTags)
